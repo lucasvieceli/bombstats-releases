@@ -85,6 +85,57 @@ Como o app **não é assinado por uma conta paga da Apple**, na primeira abertur
   sudo dpkg -i BombStats-*.deb
   ```
 
+### Servidor / VPS (Linux)
+
+Instale e inicie com um único comando. Escolha abaixo o comando do seu sistema:
+
+**Passo 1 — Baixar** (escolha o comando do seu sistema):
+
+x64 (maioria dos VPS):
+
+```bash
+curl -fsSL https://github.com/lucasvieceli/bombstats-releases/releases/latest/download/bombstats-server-linux-x64 -o bombstats-server && chmod +x bombstats-server
+```
+
+ARM64 (Oracle Free Tier, Raspberry Pi, etc.):
+
+```bash
+curl -fsSL https://github.com/lucasvieceli/bombstats-releases/releases/latest/download/bombstats-server-linux-arm64 -o bombstats-server && chmod +x bombstats-server
+```
+
+**Passo 2 — Iniciar dentro de uma sessão `screen`** (continua rodando mesmo após fechar o terminal):
+
+```bash
+screen -S bombstats ./bombstats-server
+```
+
+Na primeira vez, o servidor pede uma senha para proteger o painel — digite e pressione Enter. Depois de subir, **desanexe a sessão sem matar o processo** com:
+
+<kbd>Ctrl+A</kbd> depois <kbd>D</kbd>
+
+Pronto. Pode fechar o terminal à vontade.
+
+**Voltar a ver os logs:**
+
+```bash
+screen -r bombstats
+```
+
+**Nas próximas vezes** (senha já criada), para iniciar basta:
+
+```bash
+screen -S bombstats ./bombstats-server
+```
+
+**Encerrar o servidor:**
+
+```bash
+pkill -f bombstats-server
+```
+
+> ℹ️ Se preferir passar a senha por variável de ambiente (automação, Docker), use `BOMBSTATS_PASSWORD=suasenha` antes do comando — nesse caso o `screen` é opcional.
+
+
 ---
 
 ## ✨ O que o BombStats faz
