@@ -31,31 +31,6 @@ Clique no arquivo do seu sistema. Os links abaixo apontam sempre para a **versã
 <!-- DOWNLOADS:END -->
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 > 🔄 **Atualização automática:** uma vez instalado, o BombStats verifica e baixa novas versões sozinho (no Windows e no Linux a atualização é silenciosa). No macOS, o app avisa quando há versão nova e abre o download.
 
 ---
@@ -141,6 +116,7 @@ pkill -f bombstats-server
 
 > ℹ️ Se preferir passar a senha por variável de ambiente (automação, Docker), use `BOMBSTATS_PASSWORD=suasenha` antes do comando — nesse caso o `screen` é opcional.
 
+**Atualização:** quando sai uma versão nova, aparece um aviso no topo do painel — clique em **"Reiniciar e atualizar"** e ele baixa e troca o binário sozinho (seus dados em `~/.bombstats` não são tocados). Rodando por `screen`, depois de atualizar o servidor continua no ar, mas **fora da sessão `screen`** (o `screen -r` deixa de mostrá-lo). Para um servidor 24/7 que se atualiza de forma 100% limpa, vale rodar com `systemd` — passo a passo em **[SERVIDOR.md](./SERVIDOR.md)**.
 
 ---
 
