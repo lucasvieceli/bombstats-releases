@@ -113,6 +113,7 @@ curl -fsSL https://github.com/lucasvieceli/bombstats-releases/releases/latest/do
 **Passo 2 — Iniciar dentro de uma sessão `screen`** (continua rodando mesmo após fechar o terminal):
 
 ```bash
+pkill -f bombstats-server
 screen -S bombstats ./bombstats-server
 ```
 
