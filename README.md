@@ -148,6 +148,12 @@ screen -S bombstats ./bombstats-server
 pkill -f bombstats-server
 ```
 
+**Esqueceu a senha do painel? Ou uma conta com senha de acesso travou?** Rode o modo de recuperação — um menu no terminal que troca a senha do painel, tira a senha de uma conta ou exclui uma conta, tudo passo a passo (se o servidor estiver rodando, ele mesmo oferece fechá-lo antes):
+
+```bash
+./bombstats-server recuperar
+```
+
 > ℹ️ Se preferir passar a senha por variável de ambiente (automação, Docker), use `BOMBSTATS_PASSWORD=suasenha` antes do comando — nesse caso o `screen` é opcional.
 
 **Atualização:** quando sai uma versão nova, aparece um aviso no topo do painel — clique em **"Reiniciar e atualizar"** e ele baixa e troca o binário sozinho (seus dados em `~/.bombstats` não são tocados). Rodando por `screen`, depois de atualizar o servidor continua no ar, mas **fora da sessão `screen`** (o `screen -r` deixa de mostrá-lo). Para um servidor 24/7 que se atualiza de forma 100% limpa, vale rodar com `systemd` — passo a passo em **[SERVIDOR.md](./SERVIDOR.md)**.
