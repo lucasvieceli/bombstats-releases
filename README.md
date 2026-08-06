@@ -6,6 +6,7 @@
 
 [![Baixar](https://img.shields.io/badge/Baixar%20a%20%C3%BAltima%20vers%C3%A3o-2ea44f?style=for-the-badge&logo=github)](https://github.com/lucasvieceli/bombstats-releases/releases/latest)
 [![Versão](https://img.shields.io/github/v/release/lucasvieceli/bombstats-releases?style=for-the-badge&label=vers%C3%A3o)](https://github.com/lucasvieceli/bombstats-releases/releases/latest)
+<img height="28" src="https://komarev.com/ghpvc/?username=bombstats&label=Visitas%20na%20P%C3%A1gina&color=38bdf8&style=for-the-badge" alt="Contador de visitas" />
 
 </div>
 
