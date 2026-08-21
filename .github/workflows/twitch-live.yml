@@ -1,0 +1,87 @@
+# Avisa o BombStats quando alguém da comunidade entra ao vivo na Twitch.
+#
+# Como funciona: de 5 em 5 minutos este robô pergunta à Twitch quem da lista
+# (twitch-channels.json) está transmitindo e publica a resposta no arquivo
+# live.json, na branch `live-data`. Cada cópia do BombStats só LÊ esse arquivo
+# (src/main/live.ts) — assim o segredo da credencial da Twitch nunca sai daqui, e
+# uma consulta serve todos os usuários de uma vez.
+#
+# Antes de funcionar, cadastre o segredo uma única vez:
+#   gh secret set TWITCH_CLIENT_SECRET --repo lucasvieceli/bombstats-releases
+# (ou em Settings → Secrets and variables → Actions → New repository secret)
+#
+# Para trocar quem é avisado, edite twitch-channels.json — nada mais.
+name: Lives da Twitch
+
+on:
+   schedule:
+      # De 5 em 5 min é o mínimo que o GitHub aceita. Em horário cheio ele pode
+      # atrasar alguns minutos: como live dura horas, o aviso chega em tempo.
+      - cron: "*/5 * * * *"
+   # Permite rodar na mão pelo site/CLI (útil para testar).
+   workflow_dispatch:
+
+# Duas rodadas ao mesmo tempo brigariam pelo push da branch de dados.
+concurrency:
+   group: twitch-live
+   cancel-in-progress: false
+
+jobs:
+   check:
+      runs-on: ubuntu-latest
+      permissions:
+         # Só para escrever a branch live-data.
+         contents: write
+      steps:
+         - uses: actions/checkout@v4
+
+         - uses: actions/setup-node@v4
+           with:
+              node-version: "20"
+
+         - name: Perguntar à Twitch quem está ao vivo
+           env:
+              # O Client ID é público (vai em toda chamada); só o segredo fica
+              # guardado nos Secrets.
+              TWITCH_CLIENT_ID: zt25zbps1tdabdyj593rhed2xeo7xc
+              TWITCH_CLIENT_SECRET: ${{ secrets.TWITCH_CLIENT_SECRET }}
+           run: node .github/scripts/twitch-live.mjs "$RUNNER_TEMP/live.json"
+
+         - name: Comparar com o que já está publicado
+           id: diff
+           env:
+              GH_TOKEN: ${{ github.token }}
+           run: |
+              # Lê pela API (não pelo CDN) para não comparar com uma cópia velha.
+              # Branch ainda não existe na primeira vez: segue com arquivo vazio.
+              gh api "repos/${{ github.repository }}/contents/live.json?ref=live-data" \
+                 -H "Accept: application/vnd.github.raw" > "$RUNNER_TEMP/prev.json" 2>/dev/null || true
+              CHANGED=$(node .github/scripts/live-changed.mjs "$RUNNER_TEMP/live.json" "$RUNNER_TEMP/prev.json")
+              echo "changed=$CHANGED" >> "$GITHUB_OUTPUT"
+              echo "Publicar? $CHANGED"
+
+         - name: Publicar na branch live-data
+           if: steps.diff.outputs.changed == 'yes'
+           env:
+              GH_TOKEN: ${{ github.token }}
+           run: |
+              # A branch live-data é só um porta-arquivo: recriamos com UM commit
+              # e sobrescrevemos. Assim o robô publica o dia inteiro sem o
+              # repositório crescer, e a branch principal (releases, README) fica
+              # intocada.
+              WORK="$RUNNER_TEMP/publish"
+              mkdir -p "$WORK" && cd "$WORK"
+              cp "$RUNNER_TEMP/live.json" live.json
+              cat > README.md <<'TXT'
+              Branch de dados: quem da comunidade está ao vivo na Twitch agora.
+              Escrita pelo robô .github/workflows/twitch-live.yml (branch main) e
+              lida pelo BombStats de cada usuário. Não edite na mão — a próxima
+              rodada do robô sobrescreve.
+              TXT
+              git init -q -b live-data
+              git config user.name "github-actions[bot]"
+              git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+              git add live.json README.md
+              git commit -q -m "live: quem está ao vivo agora"
+              git push -q --force \
+                 "https://x-access-token:$GH_TOKEN@github.com/${{ github.repository }}.git" live-data

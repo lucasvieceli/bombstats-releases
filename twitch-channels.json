@@ -1,0 +1,4 @@
+{
+   "_comment": "Canais da Twitch que o BombStats avisa quando entram ao vivo. Use o nome que aparece na URL: twitch.tv/<login>, tudo minusculo. Editar este arquivo basta — o robo (.github/workflows/twitch-live.yml) pega a lista nova na proxima rodada, sem precisar lancar versao nova do app.",
+   "channels": ["alienigena404", "magraonft"]
+}
