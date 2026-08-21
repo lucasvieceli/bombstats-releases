@@ -76,7 +76,35 @@ const streams = await helix(token, "streams", { user_login: logins });
 const users = await helix(token, "users", {
    login: streams.map((s) => s.user_login),
 });
-const avatarOf = new Map(users.map((u) => [u.login, u.profile_image_url]));
+
+// A foto vai EMBUTIDA no arquivo, não como link para o servidor da Twitch. Dois
+// motivos: o BombStats bloqueia imagem de fora por segurança (a política do
+// index.html só aceita "self" e data:), e assim nenhum usuário precisa buscar
+// nada na Twitch — quem faz isso é este robô, uma vez, para todo mundo.
+//
+// Puxamos a versão de 70x70 (o card do menu desenha em 32px, 64 em tela retina):
+// a de 300x300 pesaria umas dez vezes mais dentro do arquivo, que cada cópia do
+// app lê de 5 em 5 minutos.
+async function embedAvatar(url) {
+   if (!url) return undefined;
+   try {
+      const small = url.replace(/-\d+x\d+\.(jpeg|jpg|png)$/i, "-70x70.$1");
+      const res = await fetch(small);
+      if (!res.ok) return undefined;
+      const type = res.headers.get("content-type") || "image/jpeg";
+      const base64 = Buffer.from(await res.arrayBuffer()).toString("base64");
+      return `data:${type};base64,${base64}`;
+   } catch {
+      // Sem foto o card mostra a inicial do nome — não vale falhar por isso.
+      return undefined;
+   }
+}
+
+const avatarOf = new Map(
+   await Promise.all(
+      users.map(async (u) => [u.login, await embedAvatar(u.profile_image_url)])
+   )
+);
 
 const live = streams
    .map((s) => ({
