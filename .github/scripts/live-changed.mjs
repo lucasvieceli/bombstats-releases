@@ -35,13 +35,12 @@ if (!prev) {
    process.exit(0);
 }
 
-// O que a tela do app realmente mostra e não muda sozinho. O "tem foto ou não"
-// entra na conta para que a chegada de uma foto que faltava seja publicada na
-// hora (o conteúdo dela, não: trocar de foto é raro e o refresco de meia em meia
-// hora já pega).
+// O que a tela do app realmente mostra e não muda sozinho. A foto entra inteira
+// na comparação: ela é o próprio conteúdo (vem embutida no arquivo), então
+// trocar de foto — ou passar de link para foto embutida — precisa publicar.
 const shape = (data) =>
    (data.live || [])
-      .map((s) => `${s.login}|${s.title || ""}|${s.game || ""}|${s.avatar ? "img" : ""}`)
+      .map((s) => `${s.login}|${s.title || ""}|${s.game || ""}|${s.avatar || ""}`)
       .sort()
       .join("\n");
 
