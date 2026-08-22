@@ -73,9 +73,11 @@ const token = await getToken();
 const streams = await helix(token, "streams", { user_login: logins });
 
 // Foto do canal (a resposta de streams não traz). Uma consulta só para todos.
-const users = await helix(token, "users", {
-   login: streams.map((s) => s.user_login),
-});
+// Com ninguém ao vivo não há o que perguntar — e a Twitch recusa (HTTP 400) uma
+// consulta sem nenhum canal, então sair daqui direto não é atalho, é o certo.
+const users = streams.length
+   ? await helix(token, "users", { login: streams.map((s) => s.user_login) })
+   : [];
 
 // A foto vai EMBUTIDA no arquivo, não como link para o servidor da Twitch. Dois
 // motivos: o BombStats bloqueia imagem de fora por segurança (a política do
