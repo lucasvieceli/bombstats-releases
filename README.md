@@ -24,15 +24,16 @@ Clique no arquivo do seu sistema. Os links abaixo apontam sempre para a **versã
 
 | Sistema | Arquivo | Observação |
 | --- | --- | --- |
-| **Windows** | [`BombStats-Setup-0.20.1.exe`](https://github.com/lucasvieceli/bombstats-releases/releases/download/v0.20.1/BombStats-Setup-0.20.1.exe) | Instalador (NSIS) |
-| **macOS (Apple Silicon — M1/M2/M3)** | [`BombStats-0.20.1-arm64.dmg`](https://github.com/lucasvieceli/bombstats-releases/releases/download/v0.20.1/BombStats-0.20.1-arm64.dmg) | Macs novos |
-| **macOS (Intel)** | [`BombStats-0.20.1.dmg`](https://github.com/lucasvieceli/bombstats-releases/releases/download/v0.20.1/BombStats-0.20.1.dmg) | Macs antigos |
-| **Linux** | [`BombStats-0.20.1.AppImage`](https://github.com/lucasvieceli/bombstats-releases/releases/download/v0.20.1/BombStats-0.20.1.AppImage) | Roda em qualquer distro |
-| **Linux (Debian/Ubuntu)** | [`bombstats_0.20.1_amd64.deb`](https://github.com/lucasvieceli/bombstats-releases/releases/download/v0.20.1/bombstats_0.20.1_amd64.deb) | `sudo dpkg -i …` |
-| **Servidor/VPS (Linux x64)** | [`bombstats-server-linux-x64`](https://github.com/lucasvieceli/bombstats-releases/releases/download/v0.20.1/bombstats-server-linux-x64) | Terminal, sem tela — painel no navegador |
-| **Servidor/VPS (Linux ARM64)** | [`bombstats-server-linux-arm64`](https://github.com/lucasvieceli/bombstats-releases/releases/download/v0.20.1/bombstats-server-linux-arm64) | Terminal, sem tela — painel no navegador |
+| **Windows** | [`BombStats-Setup-0.21.0.exe`](https://github.com/lucasvieceli/bombstats-releases/releases/download/v0.21.0/BombStats-Setup-0.21.0.exe) | Instalador (NSIS) |
+| **macOS (Apple Silicon — M1/M2/M3)** | [`BombStats-0.21.0-arm64.dmg`](https://github.com/lucasvieceli/bombstats-releases/releases/download/v0.21.0/BombStats-0.21.0-arm64.dmg) | Macs novos |
+| **macOS (Intel)** | [`BombStats-0.21.0.dmg`](https://github.com/lucasvieceli/bombstats-releases/releases/download/v0.21.0/BombStats-0.21.0.dmg) | Macs antigos |
+| **Linux** | [`BombStats-0.21.0.AppImage`](https://github.com/lucasvieceli/bombstats-releases/releases/download/v0.21.0/BombStats-0.21.0.AppImage) | Roda em qualquer distro |
+| **Linux (Debian/Ubuntu)** | [`bombstats_0.21.0_amd64.deb`](https://github.com/lucasvieceli/bombstats-releases/releases/download/v0.21.0/bombstats_0.21.0_amd64.deb) | `sudo dpkg -i …` |
+| **Servidor/VPS (Linux x64)** | [`bombstats-server-linux-x64`](https://github.com/lucasvieceli/bombstats-releases/releases/download/v0.21.0/bombstats-server-linux-x64) | Terminal, sem tela — painel no navegador |
+| **Servidor/VPS (Linux ARM64)** | [`bombstats-server-linux-arm64`](https://github.com/lucasvieceli/bombstats-releases/releases/download/v0.21.0/bombstats-server-linux-arm64) | Terminal, sem tela — painel no navegador |
 
 <!-- DOWNLOADS:END -->
+
 
 
 
