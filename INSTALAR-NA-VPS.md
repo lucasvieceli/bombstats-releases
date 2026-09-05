@@ -235,57 +235,11 @@ A tela volta para o `root@...#`. Agora sim pode fechar tudo — o farm continua.
 
 ---
 
-## Pronto! (e um extra que vale a pena)
+## Pronto!
 
-O BombStats já está farmando 24 horas por dia. Você pode parar por aqui.
+O BombStats está farmando 24 horas por dia, no servidor, sem depender do seu computador. Pode desligar o PC e ir dormir.
 
-Mas tem um detalhe: se a máquina reiniciar por algum motivo, o BombStats **não volta sozinho**. Quem resolve isso é o **systemd** — um recurso do Linux que fica de olho no programa e o religa sempre. São dois minutos e você nunca mais pensa nisso.
-
-### Deixar o BombStats se religar sozinho
-
-Entre no servidor de novo (Passo 3) e rode, um de cada vez:
-
-**1.** Desligue o que está rodando:
-
-```bash
-pkill -f bombstats-server
-```
-
-**2.** Copie o bloco inteiro abaixo — **da primeira linha até o `EOF` do final** — troque `suaSenhaForte` pela senha do seu painel, e cole:
-
-```bash
-cat > /etc/systemd/system/bombstats.service <<'EOF'
-[Unit]
-Description=BombStats Server
-After=network.target
-
-[Service]
-ExecStart=/root/bombstats-server
-Restart=always
-User=root
-Environment=BOMBSTATS_PASSWORD=suaSenhaForte
-Environment=BOMBSTATS_DATA=/root/.bombstats
-
-[Install]
-WantedBy=multi-user.target
-EOF
-```
-
-**3.** Ligue:
-
-```bash
-systemctl daemon-reload && systemctl enable --now bombstats
-```
-
-**4.** Para ver o que está acontecendo (e pegar o endereço do painel):
-
-```bash
-journalctl -u bombstats -f
-```
-
-Para sair dessa tela de logs, aperte <kbd>Ctrl</kbd> + <kbd>C</kbd>. **Isso fecha só a exibição dos logs, não o BombStats.**
-
-**✅ Deu certo se:** nos logs aparece o endereço `https://...trycloudflare.com` e o painel abre no navegador.
+Daqui para a frente você só precisa da colinha abaixo — e, na maior parte dos dias, nem dela.
 
 ---
 
@@ -295,13 +249,14 @@ Guarde esta tabela. É tudo o que você vai precisar daqui para a frente.
 
 | O que você quer fazer | O que digitar no servidor |
 | --- | --- |
-| Ver os logs / achar o endereço do painel | `journalctl -u bombstats -f` |
-| Desligar o BombStats | `systemctl stop bombstats` |
-| Ligar de novo | `systemctl start bombstats` |
+| Ver o que está acontecendo / achar o endereço do painel | `screen -r bombstats` |
+| Sair de novo, deixando ligado | <kbd>Ctrl</kbd>+<kbd>A</kbd> e depois <kbd>D</kbd> |
+| Desligar o BombStats | `pkill -f bombstats-server` |
+| Ligar de novo | `cd ~` e depois `screen -S bombstats ./bombstats-server` |
 | Ver quanta memória sobrou | `free -h` |
 | Ver quanto espaço sobrou | `df -h` |
 
-> Se você **não** fez a parte do systemd, troque os comandos de ligar/desligar por `screen -S bombstats ./bombstats-server` e `pkill -f bombstats-server`, e veja os logs com `screen -r bombstats`.
+> ⚠️ Depois de entrar com o `screen -r bombstats`, **não feche a janela direto** — saia sempre com <kbd>Ctrl</kbd>+<kbd>A</kbd> e depois <kbd>D</kbd>, senão o BombStats para junto.
 
 **Atualizar o BombStats:** não precisa de comando nenhum. Quando sai uma versão nova, aparece um aviso no topo do painel — clique em **"Reiniciar e atualizar"** e ele se atualiza sozinho, sem mexer nas suas contas.
 
@@ -313,7 +268,7 @@ Guarde esta tabela. É tudo o que você vai precisar daqui para a frente.
 Depende de quantos heróis cada conta tem. Comece nele e, de vez em quando, rode `free -h` no servidor: se a memória livre estiver acabando, dá para aumentar o plano em **Resize**, no painel da Linode. A máquina reinicia e continua tudo como estava — não precisa reinstalar nada nem cadastrar as contas de novo.
 
 **Esqueci a senha do painel. E agora?**
-Entre no servidor e rode `systemctl stop bombstats` e depois `~/bombstats-server recuperar`. Abre um menuzinho no terminal que troca a senha para você, passo a passo.
+Entre no servidor e rode `pkill -f bombstats-server` e depois `~/bombstats-server recuperar`. Abre um menuzinho no terminal que troca a senha para você, passo a passo.
 
 **Preciso liberar alguma porta, mexer em firewall?**
 Não. O painel sai por um túnel seguro (é o tal do `trycloudflare.com`), já com cadeado. Não precisa configurar nada.
@@ -328,7 +283,7 @@ As senhas e chaves ficam guardadas cifradas, e o painel só abre com a sua senha
 No painel da Linode, abra o seu servidor e escolha **Delete**. Só desligar **não** interrompe a cobrança. Faça o backup da pasta `.bombstats` antes, porque apagar é definitivo.
 
 **Fechei o terminal e o farm parou.**
-Você rodou o BombStats sem o `screen` e sem o systemd. Refaça o passo 4.3 e 4.4 — ou, melhor ainda, faça a parte do systemd, que resolve de vez.
+Você saiu sem fazer o <kbd>Ctrl</kbd>+<kbd>A</kbd> e depois <kbd>D</kbd>. Entre no servidor de novo e refaça os passos 4.3 e 4.4.
 
 ---
 
