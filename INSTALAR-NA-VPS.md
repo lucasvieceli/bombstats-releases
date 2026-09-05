@@ -34,7 +34,7 @@ O resto desta página é cada um desses passos com todos os detalhes. **Não pul
 
 ## Passo 1 — Criar a conta na Linode
 
-1. Acesse **[linode.com](https://linode.gvw92c.net/do1vYM)** e clique em **Sign up**.
+1. Acesse **[linode.com](https://www.linode.com/)** e clique em **Sign up**.
 2. Preencha e-mail, nome de usuário e senha (ou entre com Google/GitHub).
 3. Confirme o e-mail — chega uma mensagem com um link de verificação.
 4. A Linode pede **forma de pagamento** antes de liberar a criação do servidor: cadastre o cartão em **Billing → Add Payment Method**. Pode aparecer também uma verificação por telefone/SMS — é uma checagem antifraude, normal.
