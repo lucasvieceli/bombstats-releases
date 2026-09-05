@@ -1,170 +1,257 @@
 <div align="center">
 
-# BombStats na VPS — do zero ao painel no ar
+# Botar o BombStats num servidor
 
-**Um servidor ligado 24 horas por dia, por cerca de US$ 5 por mês.**
-Você não precisa deixar o computador ligado: o farm roda no servidor e você acompanha tudo pelo navegador — do PC ou do celular.
+**Para o farm rodar 24 horas por dia sem o seu computador ligado.**
+Custa cerca de US$ 5 por mês e leva uns 20 minutos. Você acompanha tudo pelo navegador, no PC ou no celular.
 
 </div>
 
 ---
 
-## O que você vai precisar
+## Leia isto antes de começar
 
-- Um **cartão de crédito** (a Linode cobra por mês; o valor é proporcional aos dias usados).
-- **15 minutos.** Não precisa saber Linux: é copiar e colar os comandos desta página.
-- Um **e-mail** para criar a conta.
+Se você nunca mexeu com servidor, tudo bem: **este tutorial não pressupõe nada**. É clicar onde está escrito e colar os comandos que estão aqui. Não precisa entender o que cada comando faz.
 
-> 💡 **VPS** é só um computador que fica ligado na internet o tempo todo, na casa de outra pessoa. Você o comanda digitando comandos no terminal, em vez de clicar em janelas.
+**O que você vai precisar:**
+
+- Um **cartão de crédito** (a Linode cobra em dólar, todo mês).
+- Um **e-mail**.
+- Uns **20 minutos** sem pressa.
+
+**Três palavras que vão aparecer o tempo todo:**
+
+| Palavra | O que é, em português claro |
+| --- | --- |
+| **Servidor** ou **VPS** | Um computador que fica ligado na internet o tempo todo, na casa de outra empresa. É ele que vai farmar para você. |
+| **Terminal** | Uma tela preta onde você digita comandos em vez de clicar em botões. É assim que se manda coisas para o servidor. |
+| **Linode** | A empresa que aluga esse computador. Hoje ela pertence à Akamai, então você vai ver os dois nomes pelo caminho. |
 
 ---
 
 ## O caminho todo, em 4 passos
 
-Antes de começar, para você saber onde vai chegar:
+Para você saber onde vai chegar:
 
-1. **Criar a conta** na Linode e cadastrar o cartão.
-2. **Criar o servidor** — Ubuntu, plano de US$ 5 — e **entrar nele** pelo Termius ou pelo terminal.
-3. **Baixar o BombStats** lá dentro (um comando).
-4. **Ligar o painel**, criar a senha e abrir o endereço que ele mostrar no navegador.
+1. **Criar a conta** na Linode.
+2. **Criar o servidor** e **entrar nele**.
+3. **Baixar o BombStats** lá dentro.
+4. **Ligar** e abrir o painel no navegador.
 
-O resto desta página é cada um desses passos com todos os detalhes. **Não pule nenhum e vai dar certo.**
+Cada passo abaixo termina com um **✅ Deu certo se…** — só siga para o próximo quando aquilo aparecer na sua tela. Se não apareceu, a resposta está logo abaixo, no **❓ Se der errado**.
 
 ---
 
 ## Passo 1 — Criar a conta na Linode
 
-1. Acesse **[linode.com](https://www.linode.com/)** e clique em **Sign up**.
-2. Preencha e-mail, nome de usuário e senha (ou entre com Google/GitHub).
-3. Confirme o e-mail — chega uma mensagem com um link de verificação.
-4. A Linode pede **forma de pagamento** antes de liberar a criação do servidor: cadastre o cartão em **Billing → Add Payment Method**. Pode aparecer também uma verificação por telefone/SMS — é uma checagem antifraude, normal.
+⏱️ 5 minutos
+
+1. Abra **[linode.com](https://www.linode.com/)** e clique no botão **Sign up** (fica no canto de cima, à direita).
+2. Preencha **e-mail**, um **nome de usuário** e uma **senha**. (Ou clique em entrar com Google/GitHub, se preferir.)
+3. Vá no seu e-mail e clique no link de confirmação que a Linode mandou. Se não achar, olhe a caixa de spam.
+4. Agora ela vai pedir o **cartão**. É obrigatório — sem cartão a Linode não deixa criar servidor. O menu fica em **Billing** → **Add Payment Method**.
+5. Pode aparecer uma verificação por **SMS ou telefone**. É normal, é só antifraude.
 
 <!-- captura: tela de cadastro da Linode -->
 
-> ℹ️ A Linode hoje faz parte da Akamai, então você verá os dois nomes pela interface. O painel fica em **cloud.linode.com**.
+**✅ Deu certo se:** você está dentro do painel, num site chamado **cloud.linode.com**, e vê um botão azul escrito **Create**.
+
+**❓ Se der errado:**
+- *"Não recebi o e-mail"* → cheque o spam e confira se digitou o e-mail certo; dá para pedir o reenvio na própria tela.
+- *"Recusou meu cartão"* → alguns cartões pré-pagos e virtuais não passam. Tente outro cartão, de preferência um internacional comum.
+
+> 💰 **Sobre a cobrança:** a Linode cobra por hora e fecha a conta uma vez por mês. Se você criar o servidor hoje e apagar daqui a três dias, paga só os três dias.
 
 ---
 
 ## Passo 2 — Criar o servidor
 
-No painel, clique em **Create → Linode**. São cinco escolhas:
+⏱️ 3 minutos
 
-| Campo                    | O que escolher                                                                                              |
-| ------------------------ | ----------------------------------------------------------------------------------------------------------- |
-| **Choose a Distribution** | **Ubuntu 24.04 LTS** (é o sistema; LTS = versão de longa duração)                                            |
-| **Region**                | Onde a máquina fica fisicamente. Regiões dos EUA (Dallas, Atlanta, Newark) costumam ser as mais baratas; São Paulo dá menos atraso no SSH, mas custa mais. O preço aparece na hora em que você seleciona. |
-| **Linode Plan**           | Aba **Shared CPU → Nanode 1 GB** (1 CPU, 1 GB de RAM, 25 GB de disco) — o de **US$ 5/mês**                    |
-| **Linode Label**          | Um apelido para você se achar depois, ex.: `bombstats`                                                        |
-| **Root Password**         | **Anote esta senha.** É a senha de administrador do servidor — você vai usá-la para entrar.                    |
+No painel, clique em **Create** e depois em **Linode**. Vai abrir uma página comprida com várias escolhas. **Você só precisa mexer em cinco delas** — o resto pode deixar exatamente como está.
 
-Deixe o resto como está e clique em **Create Linode**. Em cerca de um minuto o status muda de *Provisioning* para **Running**.
+**1. Choose a Distribution** (o sistema que vai rodar na máquina)
+Escolha **Ubuntu 24.04 LTS**.
 
-Na página do servidor, copie o **IP address** (algo como `172.105.10.20`). É o endereço da sua máquina.
+**2. Region** (em que lugar do mundo o computador vai ficar)
+Escolha uma região dos **Estados Unidos** — `Dallas, TX`, `Atlanta, GA` ou `Newark, NJ`. São as mais baratas. São Paulo funciona também, mas costuma custar mais; o preço aparece na tela na hora em que você escolhe.
+
+**3. Linode Plan** (o tamanho da máquina)
+Clique na aba **Shared CPU** e escolha o **Nanode 1 GB** — é o de **US$ 5/mês**. É o primeiro da lista.
+
+**4. Linode Label** (só um apelido, para você achar depois)
+Escreva `bombstats`.
+
+**5. Root Password** (a senha de administrador da máquina)
+Invente uma senha forte e **anote num lugar seguro**. Você vai precisar dela daqui a dois minutos, e não tem "esqueci minha senha" aqui.
+
+Agora role até o fim e clique em **Create Linode**.
 
 <!-- captura: tela de criação com o plano Nanode 1 GB selecionado -->
 
-> 💰 **Cobrança:** enquanto o servidor existir, ele é cobrado — mesmo desligado. Para parar de pagar, é preciso **excluir** (Delete) o Linode, não só desligar.
+A máquina leva cerca de um minuto para ficar pronta. Você vai ver escrito **Provisioning** e depois **Running**.
+
+Quando ficar **Running**, procure na mesma página o **IP address** — são quatro números separados por pontos, tipo `172.105.10.20`. **Copie e anote também.** É o endereço da sua máquina na internet.
+
+**✅ Deu certo se:** o status está **Running** e você anotou duas coisas: **a senha** e **o IP**.
+
+**❓ Se der errado:**
+- *"Não achei o Nanode 1 GB"* → confira se você está na aba **Shared CPU**. Nas outras abas (Dedicated, High Memory) não existe plano de US$ 5.
+- *"Ficou em Provisioning e não sai"* → atualize a página do navegador.
+
+> ⚠️ **Importante para não tomar susto na fatura:** enquanto o servidor **existir**, ele é cobrado — mesmo desligado. Para parar de pagar de verdade, é preciso **apagar** (Delete) o servidor, e não só desligar.
 
 ---
 
 ## Passo 3 — Entrar no servidor
 
-Você tem três caminhos. Escolha **um**.
+⏱️ 5 minutos
 
-### a) Termius (mais fácil, tem para Windows, Mac, Android e iPhone)
+Agora você vai abrir uma janela que "conversa" com o servidor. Escolha **um** dos caminhos abaixo — o (a) é o mais fácil se você nunca fez isso.
+
+### (a) Termius — recomendado para quem está começando
+
+O Termius é um programa que guarda o endereço e a senha do servidor para você, e funciona também no celular.
 
 1. Baixe em **[termius.com](https://termius.com/)** e crie uma conta gratuita.
-2. **New Host** → em **Address** cole o IP do servidor → **Username:** `root` → **Password:** a senha que você anotou no Passo 2.
-3. Salve e dê dois cliques no host para conectar.
+2. Clique em **New Host**.
+3. Preencha só três campos:
+   - **Address:** o IP que você anotou
+   - **Username:** `root` (escreva exatamente assim, tudo minúsculo)
+   - **Password:** a senha que você anotou
+4. Salve e dê **dois cliques** no host que apareceu na lista.
 
-### b) Terminal do seu computador
+### (b) Pelo terminal do seu próprio computador
 
-No **Windows**, abra o *PowerShell*; no **Mac/Linux**, o *Terminal*. Digite (trocando pelo seu IP):
+- **Windows:** aperte a tecla Windows, digite `powershell` e abra o **Windows PowerShell**.
+- **Mac:** aperte `Cmd + Espaço`, digite `terminal` e abra o **Terminal**.
 
-```bash
+Digite a linha abaixo, trocando `SEU_IP` pelo número que você anotou, e aperte **Enter**:
+
+```
 ssh root@SEU_IP
 ```
 
-Na primeira vez ele pergunta se confia na máquina — responda `yes` — e depois pede a senha. **A senha não aparece na tela enquanto você digita**, nem em asteriscos. Digite e dê Enter.
+Na primeira vez ele pergunta se você confia nessa máquina e espera você escrever `yes` e apertar Enter. Depois ele pede a senha.
 
-### c) Pelo próprio site da Linode
+> ⚠️ **A senha não aparece enquanto você digita** — nem letras, nem bolinhas, nada. Parece que o teclado travou, mas não travou. Digite e aperte Enter normalmente.
 
-Na página do servidor, clique em **Launch LISH Console**. Abre um terminal dentro do navegador, sem instalar nada. Útil se algo der errado com o SSH.
+### (c) Pelo próprio site da Linode (se os outros dois falharem)
 
-Deu certo quando aparece algo assim:
+Na página do seu servidor, clique em **Launch LISH Console**. Abre um terminal dentro do navegador, sem instalar nada.
+
+**✅ Deu certo se:** apareceu uma linha parecida com esta, esperando você digitar:
 
 ```
 root@localhost:~#
 ```
 
-Daqui para frente, **tudo é copiar e colar nessa tela**.
+**❓ Se der errado:**
+- *"Permission denied"* → a senha está errada. Volte na página do servidor na Linode, use **Reset Root Password** para definir uma nova, e tente de novo.
+- *"Connection refused" ou fica tentando para sempre* → a máquina ainda não terminou de ligar. Espere um minuto e tente outra vez.
+- *"Digito a senha e não aparece nada"* → é assim mesmo. Continue digitando e aperte Enter.
 
 ---
 
-## Passo 4 — Preparar a máquina
+## Como usar essa tela preta
 
-Um comando só, para atualizar o sistema e instalar o `screen` (que mantém programas rodando depois que você fecha o terminal):
+Só quatro coisas, e você já sabe tudo o que precisa:
+
+1. **Um comando por vez.** Cole, aperte **Enter**, e espere terminar antes de colar o próximo.
+2. **Como colar:** no Termius e no Mac, `Ctrl+V` / `Cmd+V`. No PowerShell do Windows, **clique com o botão direito** — ele cola sozinho.
+3. **Cole o comando inteiro**, do começo ao fim, mesmo que ele seja gigante e apareça quebrado em várias linhas aqui na página. É uma linha só.
+4. **Se aparecer um monte de texto passando**, está funcionando. Espere parar.
+
+> 💡 Nesta página, cada comando tem um **botão de copiar** no canto direito quando você passa o mouse por cima. Use ele — assim não corre o risco de faltar um pedaço.
+
+---
+
+## Passo 4 — Instalar e ligar o BombStats
+
+⏱️ 5 minutos
+
+Você já está dentro do servidor. Agora são três comandos.
+
+### 4.1 — Preparar a máquina
 
 ```bash
 apt update && apt upgrade -y && apt install -y screen
 ```
 
-Pode demorar um ou dois minutos. Se ele perguntar algo sobre pacotes ou serviços, aceite o padrão pressionando Enter.
+Isso atualiza o sistema e instala o `screen`, um programinha que faz o BombStats continuar rodando depois que você fechar essa janela. Vai passar bastante texto na tela; é normal, pode demorar **1 ou 2 minutos**.
 
----
+> Se em algum momento aparecer uma tela azul ou roxa perguntando sobre serviços/pacotes, é só apertar **Enter** para aceitar o que já está marcado.
 
-## Passo 5 — Instalar o BombStats
+### 4.2 — Baixar o BombStats
 
 ```bash
 cd ~
+```
+
+```bash
 curl -fsSL https://github.com/lucasvieceli/bombstats-releases/releases/latest/download/bombstats-server-linux-x64 -o bombstats-server && chmod +x bombstats-server
 ```
 
-> 🖥️ Esse é o comando para servidores **x64**, que é o caso do Nanode da Linode. Se um dia usar um servidor **ARM** (Oracle Free Tier, Raspberry Pi), troque `x64` por `arm64` no fim do link.
+Esse segundo comando não mostra nada enquanto baixa — quando o `root@...#` voltar a aparecer, terminou.
 
----
-
-## Passo 6 — Ligar o painel
+### 4.3 — Ligar
 
 ```bash
 screen -S bombstats ./bombstats-server
 ```
 
-Na primeira vez ele pede uma **senha para o painel** — essa é a senha que você vai digitar no navegador (pode ser diferente da senha do servidor). Digite e dê Enter.
+Na primeira vez, ele vai pedir uma **senha para o painel**. Essa é a senha que você vai digitar no navegador para entrar no BombStats — pode ser diferente da senha do servidor. Digite e aperte Enter.
 
-Em seguida ele mostra:
+Aí ele mostra algo assim:
 
 ```
-Bombstats — servidor  v0.1.8
+Bombstats — servidor  v0.22.6
 ----------------------------------------
 Dados:  /root/.bombstats
 Painel: http://localhost:8787
 Túnel:  https://abc-xyz.trycloudflare.com
 ```
 
-**Copie o endereço do "Túnel"** e abra no navegador do seu PC ou celular. Entre com a senha do painel e pronto — cadastre suas contas e acompanhe o farm, igual ao app de computador.
+**Copie o endereço que está na linha "Túnel"** (aquele que começa com `https://` e termina com `.trycloudflare.com`) e abra no navegador do seu computador ou do celular. Entre com a senha do painel — e pronto, é o BombStats, igualzinho ao do computador. Cadastre suas contas normalmente.
 
-Agora **desanexe a sessão** para poder fechar o terminal sem matar o programa:
+### 4.4 — Sair sem desligar
 
-<kbd>Ctrl</kbd>+<kbd>A</kbd> e depois <kbd>D</kbd>
+Falta uma coisinha, e é a mais importante: **se você simplesmente fechar a janela agora, o BombStats para junto.**
 
-Pode fechar o Termius/terminal à vontade. O farm continua rodando.
+Para sair deixando ele ligado, aperte:
 
-> 🔗 O endereço do túnel **muda toda vez que o servidor reinicia**. Configure o Telegram nas contas: o BombStats manda o novo endereço sozinho quando volta, e você também pode pedir com o comando `/url`.
+<kbd>Ctrl</kbd> + <kbd>A</kbd> e depois, soltando, a tecla <kbd>D</kbd>
+
+A tela volta para o `root@...#`. Agora sim pode fechar tudo — o farm continua.
+
+**✅ Deu certo se:** o painel abriu no navegador, você entrou com a senha, e depois de fechar a janela do terminal o painel continua funcionando.
+
+**❓ Se der errado:**
+- *"Não abriu no navegador"* → confira se copiou o endereço inteiro, incluindo o `https://`.
+- *"command not found"* → você provavelmente não está na pasta certa. Rode `cd ~` e tente o comando de novo.
+- *"Fechei a janela e parou"* → você esqueceu o `Ctrl+A` e depois `D`. Entre de novo no servidor e refaça o 4.3 e o 4.4.
+
+> 🔗 **O endereço muda!** Toda vez que o servidor reinicia, sai um endereço `trycloudflare.com` novo. Para não ficar perdido: configure o **Telegram** nas suas contas dentro do painel — o BombStats manda o endereço novo sozinho toda vez que volta. Você também pode pedir a qualquer momento com o comando `/url` no Telegram.
 
 ---
 
-## Passo 7 — Deixar 24/7 de verdade (recomendado)
+## Pronto! (e um extra que vale a pena)
 
-O `screen` já resolve o dia a dia, mas com o **systemd** o servidor volta sozinho se cair, se a máquina reiniciar ou depois de uma atualização. Vale os dois minutos.
+O BombStats já está farmando 24 horas por dia. Você pode parar por aqui.
 
-Primeiro, encerre o que está rodando:
+Mas tem um detalhe: se a máquina reiniciar por algum motivo, o BombStats **não volta sozinho**. Quem resolve isso é o **systemd** — um recurso do Linux que fica de olho no programa e o religa sempre. São dois minutos e você nunca mais pensa nisso.
+
+### Deixar o BombStats se religar sozinho
+
+Entre no servidor de novo (Passo 3) e rode, um de cada vez:
+
+**1.** Desligue o que está rodando:
 
 ```bash
 pkill -f bombstats-server
 ```
 
-Crie o serviço (cole o bloco inteiro de uma vez, trocando `suaSenhaForte` pela senha do painel):
+**2.** Copie o bloco inteiro abaixo — **da primeira linha até o `EOF` do final** — troque `suaSenhaForte` pela senha do seu painel, e cole:
 
 ```bash
 cat > /etc/systemd/system/bombstats.service <<'EOF'
@@ -184,57 +271,74 @@ WantedBy=multi-user.target
 EOF
 ```
 
-Ligue:
+**3.** Ligue:
 
 ```bash
-systemctl daemon-reload
-systemctl enable --now bombstats
+systemctl daemon-reload && systemctl enable --now bombstats
 ```
 
-Para ver os logs (e pegar o endereço do túnel):
+**4.** Para ver o que está acontecendo (e pegar o endereço do painel):
 
 ```bash
 journalctl -u bombstats -f
 ```
 
-Saia dos logs com <kbd>Ctrl</kbd>+<kbd>C</kbd> — isso fecha só a exibição, não o servidor.
+Para sair dessa tela de logs, aperte <kbd>Ctrl</kbd> + <kbd>C</kbd>. **Isso fecha só a exibição dos logs, não o BombStats.**
+
+**✅ Deu certo se:** nos logs aparece o endereço `https://...trycloudflare.com` e o painel abre no navegador.
 
 ---
 
-## Dia a dia
+## Colinha do dia a dia
 
-| O que você quer                | Comando                                                                    |
-| ------------------------------ | -------------------------------------------------------------------------- |
-| Ver os logs / pegar a URL      | `journalctl -u bombstats -f` (ou `screen -r bombstats`)                     |
-| Parar o servidor               | `systemctl stop bombstats` (ou `pkill -f bombstats-server`)                 |
-| Ligar de novo                  | `systemctl start bombstats` (ou `screen -S bombstats ./bombstats-server`)   |
-| Esqueci a senha do painel      | `systemctl stop bombstats` e depois `~/bombstats-server recuperar`          |
-| Ver memória e disco livres     | `free -h` e `df -h`                                                         |
+Guarde esta tabela. É tudo o que você vai precisar daqui para a frente.
 
-**Atualizar:** não precisa de comando. Quando sai versão nova, aparece um aviso no topo do painel — clique em **"Reiniciar e atualizar"** e ele troca o binário sozinho, sem tocar nos seus dados.
+| O que você quer fazer | O que digitar no servidor |
+| --- | --- |
+| Ver os logs / achar o endereço do painel | `journalctl -u bombstats -f` |
+| Desligar o BombStats | `systemctl stop bombstats` |
+| Ligar de novo | `systemctl start bombstats` |
+| Ver quanta memória sobrou | `free -h` |
+| Ver quanto espaço sobrou | `df -h` |
+
+> Se você **não** fez a parte do systemd, troque os comandos de ligar/desligar por `screen -S bombstats ./bombstats-server` e `pkill -f bombstats-server`, e veja os logs com `screen -r bombstats`.
+
+**Atualizar o BombStats:** não precisa de comando nenhum. Quando sai uma versão nova, aparece um aviso no topo do painel — clique em **"Reiniciar e atualizar"** e ele se atualiza sozinho, sem mexer nas suas contas.
 
 ---
 
-## Perguntas comuns
+## Perguntas que todo mundo faz
 
 **Quantas contas cabem no plano de US$ 5?**
-Comece pelo Nanode 1 GB e acompanhe com `free -h`. Se a memória livre ficar baixa, dá para aumentar o plano em **Resize** no painel da Linode — a máquina reinicia e continua tudo como estava, sem reinstalar nada.
+Depende de quantos heróis cada conta tem. Comece nele e, de vez em quando, rode `free -h` no servidor: se a memória livre estiver acabando, dá para aumentar o plano em **Resize**, no painel da Linode. A máquina reinicia e continua tudo como estava — não precisa reinstalar nada nem cadastrar as contas de novo.
 
-**Preciso abrir portas no firewall?**
-Não. O painel sai por um túnel da Cloudflare, já com HTTPS. Deixe só o SSH aberto.
+**Esqueci a senha do painel. E agora?**
+Entre no servidor e rode `systemctl stop bombstats` e depois `~/bombstats-server recuperar`. Abre um menuzinho no terminal que troca a senha para você, passo a passo.
 
-**Meus dados ficam onde?**
-Tudo na pasta `~/.bombstats` (contas, segredos cifrados e configurações). Para fazer backup, copie a pasta inteira — inclusive o `secret.key`, sem ele os segredos não abrem.
+**Preciso liberar alguma porta, mexer em firewall?**
+Não. O painel sai por um túnel seguro (é o tal do `trycloudflare.com`), já com cadeado. Não precisa configurar nada.
 
-**Como paro de pagar?**
-Exclua o Linode no painel da Linode (**Delete**). Desligar não interrompe a cobrança. Faça o backup da pasta `~/.bombstats` antes.
+**Onde ficam meus dados? Como faço backup?**
+Tudo numa pasta chamada `.bombstats`, dentro do servidor. Para guardar uma cópia, salve essa pasta inteira — inclusive o arquivo `secret.key`, porque sem ele os dados protegidos não abrem.
+
+**É seguro deixar minhas contas num servidor?**
+As senhas e chaves ficam guardadas cifradas, e o painel só abre com a sua senha. Use uma senha forte no painel e não passe o endereço do túnel para ninguém.
+
+**Como eu cancelo e paro de pagar?**
+No painel da Linode, abra o seu servidor e escolha **Delete**. Só desligar **não** interrompe a cobrança. Faça o backup da pasta `.bombstats` antes, porque apagar é definitivo.
 
 **Fechei o terminal e o farm parou.**
-Você rodou o servidor sem o `screen` e sem o `systemd`. Refaça o Passo 6 ou, melhor, o Passo 7.
+Você rodou o BombStats sem o `screen` e sem o systemd. Refaça o passo 4.3 e 4.4 — ou, melhor ainda, faça a parte do systemd, que resolve de vez.
 
 ---
 
-Detalhes técnicos da versão servidor (variáveis de ambiente, modo de recuperação, como funciona a atualização) estão em **[SERVIDOR.md](./SERVIDOR.md)**.
+## Ainda travou?
+
+Chame no **[Discord da comunidade](https://discord.gg/FcrKrY3sTy)** dizendo em qual passo você parou e o que apareceu na tela. Se puder, mande um print — resolve muito mais rápido.
+
+---
+
+Quem quiser os detalhes técnicos da versão servidor (variáveis de ambiente, modo de recuperação, como funciona a atualização) encontra tudo em **[SERVIDOR.md](./SERVIDOR.md)**.
 
 <div align="center">
 <sub>BombStats — projeto independente. Não afiliado à equipe oficial do BombCrypto.</sub>
