@@ -164,6 +164,8 @@ Como o app **não é assinado por uma conta paga da Apple**, na primeira abertur
 
 ### Servidor / VPS (Linux)
 
+> 🚀 **Nunca usou um servidor?** O passo a passo completo — criar a conta na Linode, escolher o plano de US$ 5, conectar por SSH e deixar o painel no ar 24/7 — está em **[INSTALAR-NA-VPS.md](./INSTALAR-NA-VPS.md)**. Os comandos abaixo são o resumo para quem já tem o servidor.
+
 Instale e inicie com um único comando. Escolha abaixo o comando do seu sistema:
 
 **Passo 1 — Baixar** (escolha o comando do seu sistema):
