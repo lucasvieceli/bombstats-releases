@@ -1,0 +1,23 @@
+{
+   "_leiame": [
+      "Vídeos da comunidade que aparecem na tela Início e na tela Vídeos do BombStats.",
+      "ESTE arquivo manda: enquanto ele existir aqui, o app usa esta lista em vez",
+      "da que vem embutida na versão instalada. Editar aqui troca o vídeo de todo",
+      "mundo em até 30 minutos, sem precisar lançar versão nova.",
+      "",
+      "url .......... link do vídeo no YouTube (watch?v=..., youtu.be/... ou /shorts/...)",
+      "publishedAt .. data de publicação, AAAA-MM-DD (é o que define qual é o mais novo)",
+      "title ........ OPCIONAL. Sem ele, o app usa o título de verdade do vídeo.",
+      "author ....... OPCIONAL. Sem ele, o app usa o nome do canal.",
+      "",
+      "O título, o nome do canal e a foto do canal são buscados no próprio YouTube",
+      "— só o link é obrigatório. O vídeo mais novo é o que aparece em destaque",
+      "na tela Início."
+   ],
+   "videos": [
+      {
+         "url": "https://www.youtube.com/watch?v=zPp86aU-Ogo",
+         "publishedAt": "2026-09-10"
+      }
+   ]
+}
