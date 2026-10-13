@@ -9,8 +9,9 @@
 <img height="28" src="https://komarev.com/ghpvc/?username=bombstats&label=Visitas%20na%20P%C3%A1gina&color=38bdf8&style=for-the-badge" alt="Contador de visitas" />
 
 </div>
+<img width="1292" height="900" alt="Screenshot 2026-10-13 at 10 16 18" src="https://github.com/user-attachments/assets/0966d3f2-fd66-4ff5-b4f3-d20b1306abc0" />
 
-<img width="1918" height="998" alt="Screenshot 2026-08-02 at 10 40 21" src="https://github.com/user-attachments/assets/aaf8f93a-03e7-49af-88dd-881c1d4a32c2" />
+<img width="1549" height="906" alt="Screenshot 2026-10-13 at 10 18 25" src="https://github.com/user-attachments/assets/53c431be-71a1-4d53-8355-7e2082a43421" />
 
 
 ---
