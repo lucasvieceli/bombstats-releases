@@ -25,13 +25,13 @@ Clique no arquivo do seu sistema. Os links abaixo apontam sempre para a **versã
 
 | Sistema | Arquivo | Observação |
 | --- | --- | --- |
-| **Windows** | [`BomberCity-Setup-1.3.0.exe`](https://github.com/lucasvieceli/bombstats-releases/releases/download/v1.3.0/BomberCity-Setup-1.3.0.exe) | Instalador (NSIS) |
-| **macOS (Apple Silicon — M1/M2/M3)** | [`BomberCity-1.3.0-arm64.dmg`](https://github.com/lucasvieceli/bombstats-releases/releases/download/v1.3.0/BomberCity-1.3.0-arm64.dmg) | Macs novos |
-| **macOS (Intel)** | [`BomberCity-1.3.0.dmg`](https://github.com/lucasvieceli/bombstats-releases/releases/download/v1.3.0/BomberCity-1.3.0.dmg) | Macs antigos |
-| **Linux** | [`BomberCity-1.3.0.AppImage`](https://github.com/lucasvieceli/bombstats-releases/releases/download/v1.3.0/BomberCity-1.3.0.AppImage) | Roda em qualquer distro |
-| **Linux (Debian/Ubuntu)** | [`bombstats_1.3.0_amd64.deb`](https://github.com/lucasvieceli/bombstats-releases/releases/download/v1.3.0/bombstats_1.3.0_amd64.deb) | `sudo dpkg -i …` |
-| **Servidor/VPS (Linux x64)** | [`bombstats-server-linux-x64`](https://github.com/lucasvieceli/bombstats-releases/releases/download/v1.3.0/bombstats-server-linux-x64) | Terminal, sem tela — painel no navegador |
-| **Servidor/VPS (Linux ARM64)** | [`bombstats-server-linux-arm64`](https://github.com/lucasvieceli/bombstats-releases/releases/download/v1.3.0/bombstats-server-linux-arm64) | Terminal, sem tela — painel no navegador |
+| **Windows** | [`BomberCity-Setup-1.3.1.exe`](https://github.com/lucasvieceli/bombstats-releases/releases/download/v1.3.1/BomberCity-Setup-1.3.1.exe) | Instalador (NSIS) |
+| **macOS (Apple Silicon — M1/M2/M3)** | [`BomberCity-1.3.1-arm64.dmg`](https://github.com/lucasvieceli/bombstats-releases/releases/download/v1.3.1/BomberCity-1.3.1-arm64.dmg) | Macs novos |
+| **macOS (Intel)** | [`BomberCity-1.3.1.dmg`](https://github.com/lucasvieceli/bombstats-releases/releases/download/v1.3.1/BomberCity-1.3.1.dmg) | Macs antigos |
+| **Linux** | [`BomberCity-1.3.1.AppImage`](https://github.com/lucasvieceli/bombstats-releases/releases/download/v1.3.1/BomberCity-1.3.1.AppImage) | Roda em qualquer distro |
+| **Linux (Debian/Ubuntu)** | [`bombstats_1.3.1_amd64.deb`](https://github.com/lucasvieceli/bombstats-releases/releases/download/v1.3.1/bombstats_1.3.1_amd64.deb) | `sudo dpkg -i …` |
+| **Servidor/VPS (Linux x64)** | [`bombercity-server-linux-x64`](https://github.com/lucasvieceli/bombstats-releases/releases/download/v1.3.1/bombercity-server-linux-x64) | Terminal, sem tela — painel no navegador |
+| **Servidor/VPS (Linux ARM64)** | [`bombercity-server-linux-arm64`](https://github.com/lucasvieceli/bombstats-releases/releases/download/v1.3.1/bombercity-server-linux-arm64) | Terminal, sem tela — painel no navegador |
 
 <!-- DOWNLOADS:END -->
 
